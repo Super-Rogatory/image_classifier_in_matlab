@@ -1,5 +1,5 @@
 # Artificial Intelligence Project with MATLAB
-- In order to run this program you need to have the deep learning toolbox downloaded.
+- In order to run this program you need to have the **deep learning toolbox** as well as the **image processing toolbox** downloaded.
 - On top of that, you will need to have downloaded the CIFAR10 dataset from the link below. Luckily! All you have to do is run the model.m file and the cifar-10 batches will be downloaded automatically for you!
 
 ### Important References 

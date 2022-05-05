@@ -44,7 +44,10 @@ layers = [input_layer; main_layers];
 
 
 %% Train the machine learning model. 
-training_settings = trainingOptions('adam', 'InitialLearnRate', 0.1, 'MaxEpochs', 10, 'MiniBatchSize', 64, 'Verbose', true);
+training_settings = trainingOptions('adam','InitialLearnRate', 0.000001, ...
+    'LearnRateSchedule', 'piecewise', ...
+    'LearnRateDropFactor', 0.1, ...
+    'LearnRateDropPeriod', 8, ... 'MaxEpochs', 10, 'MiniBatchSize', 64, 'Verbose', true);
 
 cifar10_compiled = trainNetwork(trainingImages, trainingLabels, layers, training_settings);
 %% Test the machine learning model. 
