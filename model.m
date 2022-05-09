@@ -14,7 +14,7 @@ helperCIFAR10Data.download(url,current_directory);
 % The training images set has the following dimenstions => 32 x 32 x 3 x 50000
 % The training labels are in plain english => 50000 x 1
 
-%% Build the machine learning model. NOTE: NOT FINISHED
+%% Build the machine learning model.
 % Defining variables. 
 % filters specifies the number of output features we want
 % kernel_size or filter_size determines the output features
@@ -48,9 +48,9 @@ final_layers = [
     % fully connected layer multiplies input by a weight matrix and adds
     % bias.
     fullyConnectedLayer(units);
-    reluLayer;cd
+    reluLayer;
     % randomly drops about half of the neurons
-    dropoutLayer(0.1);
+    dropoutLayer(0.2);
     fullyConnectedLayer(10);
     % activation function - softmax
     softmaxLayer;
@@ -61,7 +61,7 @@ layers = [input_layer; main_layers; final_layers];
 layers(2).Weights = 0.0001 * randn([kernel_size num_of_channels filters]);
 
 %% Train the machine learning model. 
-training_settings = trainingOptions('sgdm', 'InitialLearnRate', 0.001, 'MaxEpochs', 5, 'MiniBatchSize', 64, 'Verbose', true);
+training_settings = trainingOptions('sgdm', 'InitialLearnRate', 0.001, 'MaxEpochs', 1, 'MiniBatchSize', 64, 'Verbose', true);
 
 cifar10_compiled = trainNetwork(trainingImages, trainingLabels, layers, training_settings);
 %% Test the machine learning model. 
@@ -70,3 +70,4 @@ test_outcome = classify(cifar10_compiled, testImages);
 
 % Calculate the accuracy.
 accuracy = sum(test_outcome == testLabels)/numel(testLabels)
+

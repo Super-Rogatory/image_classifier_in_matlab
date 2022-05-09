@@ -1,6 +1,5 @@
-% MATH 320 - Building the CNN model
-% Chukwudi Ikem
-% Arsal Khan
+% MATH 320 Project Code:
+% Chukwudi Ikem | Arsal Khan
 
 %% Process data from our data set.
 % Reads every file you *should* have in cifar-10-batches-mat. And returns
@@ -50,17 +49,19 @@ final_layers = [
     % bias.
     fullyConnectedLayer(units);
     reluLayer;
+    % randomly drops about half of the neurons
+    dropoutLayer(0.2);
     fullyConnectedLayer(10);
     % activation function - softmax
     softmaxLayer;
     % computers cross-entropy loss
     classificationLayer;
-]
+];
 layers = [input_layer; main_layers; final_layers];
 layers(2).Weights = 0.0001 * randn([kernel_size num_of_channels filters]);
 
 %% Train the machine learning model. 
-training_settings = trainingOptions('sgdm', 'InitialLearnRate', 0.01, 'MaxEpochs', 10, 'MiniBatchSize', 64, 'Verbose', true);
+training_settings = trainingOptions('sgdm', 'InitialLearnRate', 0.002, 'MaxEpochs', 2, 'MiniBatchSize', 64, 'Verbose', true);
 
 cifar10_compiled = trainNetwork(trainingImages, trainingLabels, layers, training_settings);
 %% Test the machine learning model. 
